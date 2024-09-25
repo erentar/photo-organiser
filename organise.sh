@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 # case insensitive
-PHOTO_EXT=("cr2" "rw2")
+PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg")
 # SIDECAR_EXT=("jpg" "xmp" "pp3")
 
 if [ "$#" != 2 ];then
@@ -30,6 +30,8 @@ function move_file {
 	_PARENTDIR=$(dirname "$_FILEPATH")
 	_BASENAME1=$(basename "$_FILEPATH")
 	_BASENAME="${_BASENAME1%.*}"
+
+	echo "$_BASENAME"
 
 	mv --backup=t "$_PARENTDIR/$_BASENAME."* "$_PATH/"
 }
