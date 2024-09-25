@@ -19,7 +19,7 @@ function list_to_ext {
 
 function move_file {
 	_FILEPATH=$1
-	_DATESTR="$(exiftool -T -createdate "$_FILEPATH")"
+	_DATESTR="$(exiftool -q -q -T -createdate "$_FILEPATH")"
 	_DIRNAME=$(echo "$_DATESTR" | sed -r 's/^(.+) .+/\1/g' | sed s/:/-/g)
 	_YEAR=$(echo "$_DIRNAME" | sed -r 's/^([0-9]+)-.+/\1/')
 	_PATH="$DESTPATH/$_YEAR/$_DIRNAME"
@@ -31,9 +31,22 @@ function move_file {
 	_BASENAME1=$(basename "$_FILEPATH")
 	_BASENAME="${_BASENAME1%.*}"
 
-	echo "$_DIRNAME/$_BASENAME"
-
-	mv --backup=t "$_PARENTDIR/$_BASENAME."* "$_PATH/"
+	# echo "$_DIRNAME/$_BASENAME"
+	
+	for file in "$_PARENTDIR/$_BASENAME."*; do
+		echo "###"
+		echo "working on $file"
+		filename_=$(basename $file)
+		if $(cmp "$file" "$_PATH/$filename_");then
+			md5sum "$filename_" "$_PATH/$filename_"
+			echo "files are identical, skipping"
+			gio trash "$filename_"
+		else
+			echo "mv"
+			mv --backup=t $file "$_PATH/"
+		fi
+	done
+	
 }
 
 extensions=$(list_to_ext "${PHOTO_EXT[@]}")
