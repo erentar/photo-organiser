@@ -38,12 +38,12 @@ function move_file {
 		echo "working on $file"
 		filename_=$(basename $file)
 		if $(cmp "$file" "$_PATH/$filename_");then
-			md5sum "$filename_" "$_PATH/$filename_"
+			md5sum "$file" "$_PATH/$filename_"
 			echo "files are identical, skipping"
-			gio trash "$filename_"
+			gio trash "$file"
 		else
 			echo "mv"
-			mv --backup=t $file "$_PATH/"
+			mv --backup=t "$file" "$_PATH/"
 		fi
 	done
 	
