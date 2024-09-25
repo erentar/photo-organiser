@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 # case insensitive
-PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg")
+PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg" "dng")
 # SIDECAR_EXT=("jpg" "xmp" "pp3")
 
 if [ "$#" != 2 ];then
