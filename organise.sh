@@ -31,7 +31,7 @@ function move_file {
 	_BASENAME1=$(basename "$_FILEPATH")
 	_BASENAME="${_BASENAME1%.*}"
 
-	echo "$_BASENAME"
+	echo "$_DIRNAME/$_BASENAME"
 
 	mv --backup=t "$_PARENTDIR/$_BASENAME."* "$_PATH/"
 }
