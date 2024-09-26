@@ -48,7 +48,7 @@ function move_file {
 			echo "files are identical, skipping"
 			gio trash "$file"
 		else
-			echo "mv $file"
+			echo "mv $file" "$_PATH/"
 			mv --backup=t "$file" "$_PATH/"
 		fi
 	done
