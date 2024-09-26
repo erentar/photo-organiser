@@ -5,6 +5,7 @@ PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg" "dng")
 
 if [ "$#" != 2 ];then
 	echo "usage: organise.sh <source directory> <destination directory>"
+	exit
 fi
 
 SRCPATH=$1
