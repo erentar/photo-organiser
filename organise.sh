@@ -38,6 +38,7 @@ function move_file {
 		filename_=$(basename $file)
 
 		if [ -s "$_PATH/$filename_" ];then # destination exists
+			echo "destination exists"
 			filesize=$(stat -c%s "$file")
 			destsize=$(stat -c%s "$_PATH/$filename_")
 			if [ $filesize -lt $destsize ];then
