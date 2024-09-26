@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 # case insensitive
 PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg" "dng")
 
@@ -72,4 +71,4 @@ find "$SRCPATH" \
 	-type f \
 	-iregex '.*\.\('"$extensions"'\)$' \
 	-size +512c \
-	-exec bash $3 -c 'move_file "{}"' \;
+	-exec bash "$3" -c 'move_file "{}"' \;
