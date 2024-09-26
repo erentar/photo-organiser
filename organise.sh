@@ -19,7 +19,7 @@ function list_to_ext {
 
 function move_file {
 	_FILEPATH=$1
-	_DATESTR="$(exiftool -q -q -T -createdate "$_FILEPATH")"
+	_DATESTR=$(exiftool -q -q -T -createdate "$_FILEPATH")
 	_DIRNAME=$(echo "$_DATESTR" | sed -r 's/^(.+) .+/\1/g' | sed s/:/-/g)
 	_YEAR=$(echo "$_DIRNAME" | sed -r 's/^([0-9]+)-.+/\1/')
 	_PATH="$DESTPATH/$_YEAR/$_DIRNAME"
