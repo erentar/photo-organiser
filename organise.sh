@@ -45,7 +45,7 @@ function move_file {
 			sleep 0.2
 			gio trash "$file"
 		elif  $(cmp "$file" "$_PATH/$filename_");then
-			# md5sum "$file" "$_PATH/$filename_"
+			md5sum "$file" "$_PATH/$filename_"
 			echo "files are identical, skipping"
 			sleep 0.2
 			gio trash "$file"
