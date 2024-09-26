@@ -34,19 +34,19 @@ function move_file {
 	# echo "$_DIRNAME/$_BASENAME"
 	
 	for file in "$_PARENTDIR/$_BASENAME."*; do
+		reset
 		echo "###"
 		echo "working on $file"
 		filename_=$(basename $file)
 		if $(cmp "$file" "$_PATH/$filename_");then
-			md5sum "$file" "$_PATH/$filename_"
-			echo "files are identical, skipping"
+			# md5sum "$file" "$_PATH/$filename_"
+			# echo "files are identical, skipping"
 			gio trash "$file"
 		else
-			echo "mv"
+			echo "mv $file"
 			mv --backup=t "$file" "$_PATH/"
 		fi
 	done
-	
 }
 
 extensions=$(list_to_ext "${PHOTO_EXT[@]}")
