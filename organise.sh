@@ -52,6 +52,7 @@ function move_file {
 				mv --backup=t "$file" "$_PATH/"
 			fi
 		else
+			echo "destination does not exist"
 			echo "mv $file" "$_PATH/"
 			mv --backup=t "$file" "$_PATH/"
 		fi
