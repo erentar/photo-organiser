@@ -41,7 +41,7 @@ function move_file {
 			echo "destination exists"
 			filesize=$(stat -c%s "$file")
 			destsize=$(stat -c%s "$_PATH/$filename_")
-			if [ $filesize -lt $destsize ];then
+			if [ "$filesize" -lt "$destsize" ];then
 				echo "file is smaller, skipping"
 				gio trash "$file"
 			elif  $(cmp "$file" "$_PATH/$filename_");then
