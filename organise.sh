@@ -72,4 +72,4 @@ find "$SRCPATH" \
 	-type f \
 	-iregex '.*\.\('"$extensions"'\)$' \
 	-size +512c \
-	-exec bash -e -x -c 'move_file "{}"' \;
+	-exec bash $3 -c 'move_file "{}"' \;
