@@ -48,6 +48,7 @@ function move_file {
 				echo "files are identical, skipping"
 				gio trash "$file"
 			else
+				read  -n 1 -p "DESTINATION EXISTS AND IS DIFFERENT >"
 				echo "mv $file" "$_PATH/"
 				mv --backup=t "$file" "$_PATH/"
 			fi
