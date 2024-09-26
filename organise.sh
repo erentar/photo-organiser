@@ -2,7 +2,6 @@
 set -e
 # case insensitive
 PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg" "dng")
-# SIDECAR_EXT=("jpg" "xmp" "pp3")
 
 if [ "$#" != 2 ];then
 	echo "usage: organise.sh <source directory> <destination directory>"
@@ -30,17 +29,22 @@ function move_file {
 	_PARENTDIR=$(dirname "$_FILEPATH")
 	_BASENAME1=$(basename "$_FILEPATH")
 	_BASENAME="${_BASENAME1%.*}"
-
-	# echo "$_DIRNAME/$_BASENAME"
 	
 	for file in "$_PARENTDIR/$_BASENAME."*; do
 		reset
 		echo "###"
 		echo "working on $file"
 		filename_=$(basename $file)
-		if $(cmp "$file" "$_PATH/$filename_");then
+
+		filesize=$(stat -c%s "$file")
+		destsize=$(stat -c%s "$_PATH/$filename_")
+
+		if [ $filesize -lt $destsize ];then
+			echo "file is smaller, skipping"
+			gio trash "$file"
+		elif  $(cmp "$file" "$_PATH/$filename_");then
 			# md5sum "$file" "$_PATH/$filename_"
-			# echo "files are identical, skipping"
+			echo "files are identical, skipping"
 			gio trash "$file"
 		else
 			echo "mv $file"
@@ -54,4 +58,8 @@ extensions=$(list_to_ext "${PHOTO_EXT[@]}")
 export -f move_file
 export DESTPATH
 
-find "$SRCPATH" -type f -iregex '.*\.\('"$extensions"'\)$' -exec bash -c 'move_file "{}"' \;
+find "$SRCPATH" \
+	-type f \
+	-iregex '.*\.\('"$extensions"'\)$' \
+	-size +512c \
+	-exec bash -c 'move_file "{}"' \;
