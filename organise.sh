@@ -39,14 +39,18 @@ function move_file {
 
 		filesize=$(stat -c%s "$file")
 		destsize=$(stat -c%s "$_PATH/$filename_")
-
-		if [ $filesize -lt $destsize ];then
-			echo "file is smaller, skipping"
-			gio trash "$file"
-		elif  $(cmp "$file" "$_PATH/$filename_");then
-			# md5sum "$file" "$_PATH/$filename_"
-			echo "files are identical, skipping"
-			gio trash "$file"
+		if [ -s "$_PATH/$filename_" ];then # destination exists
+			if [ $filesize -lt $destsize ];then
+				echo "file is smaller, skipping"
+				gio trash "$file"
+			elif  $(cmp "$file" "$_PATH/$filename_");then
+				# md5sum "$file" "$_PATH/$filename_"
+				echo "files are identical, skipping"
+				gio trash "$file"
+			else
+				echo "mv $file" "$_PATH/"
+				mv --backup=t "$file" "$_PATH/"
+			fi
 		else
 			echo "mv $file" "$_PATH/"
 			mv --backup=t "$file" "$_PATH/"
