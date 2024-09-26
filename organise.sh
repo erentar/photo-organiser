@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 # case insensitive
 PHOTO_EXT=("cr2" "rw2" "mp4" "mov" "jpg" "jpeg" "dng")
 
