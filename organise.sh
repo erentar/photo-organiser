@@ -46,7 +46,7 @@ function move_file {
 			if [ "$filesize" -lt "$destsize" ];then
 				echo "file is smaller, skipping"
 				gio trash "$file"
-			elif  $(cmp "$file" "$_PATH/$filename_");then
+			elif cmp "$file" "$_PATH/$filename_";then
 				# md5sum "$file" "$_PATH/$filename_"
 				echo "files are identical, skipping"
 				gio trash "$file"
