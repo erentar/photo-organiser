@@ -33,7 +33,7 @@ function move_file {
 	_BASENAME="${_BASENAME1%.*}"
 	
 	for file in "$_PARENTDIR/$_BASENAME."*; do
-		reset
+		# reset
 		echo "###"
 		echo "working on $file"
 		filename_=$(basename $file)
